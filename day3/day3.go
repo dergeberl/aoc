@@ -1,13 +1,10 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"strings"
 )
-
-var invalidMinMaxError = errors.New("invalid min max values")
 
 //SolveDay3Part1 count the trees that hit by a path
 func SolveDay3Part1(trees []string, right int, down int) (sum int) {
