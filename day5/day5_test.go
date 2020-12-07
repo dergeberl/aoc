@@ -149,7 +149,7 @@ func BenchmarkGetSeatValue(b *testing.B) {
 	}
 }
 
-func TestGetSeatValueFor(t *testing.T) {
+func TestGetSeatID(t *testing.T) {
 	t.Run("Test getSeatID", func(t *testing.T) {
 		seatid := getSeatID("BFFFBBFRRR")
 		expectedSeatId := 567
@@ -201,12 +201,73 @@ func TestGetSeatValueFor(t *testing.T) {
 	})
 }
 
-func BenchmarkGetSeatValueFor(b *testing.B) {
+func TestGetSeatIDr(t *testing.T) {
+	t.Run("Test getSeatIDr", func(t *testing.T) {
+		seatid := getSeatIDr("BFFFBBFRRR")
+		expectedSeatId := 567
+		if seatid != expectedSeatId {
+			t.Errorf("expected '%d' but got '%d'", expectedSeatId, seatid)
+		}
+	})
+	t.Run("Test getSeatIDr", func(t *testing.T) {
+		seatid := getSeatIDr("FFFBBBFRRR")
+		expectedSeatId := 119
+		if seatid != expectedSeatId {
+			t.Errorf("expected '%d' but got '%d'", expectedSeatId, seatid)
+		}
+	})
+	t.Run("Test getSeatIDr", func(t *testing.T) {
+		seatid := getSeatIDr("BBFFBBFRLL")
+		expectedSeatId := 820
+		if seatid != expectedSeatId {
+			t.Errorf("expected '%d' but got '%d'", expectedSeatId, seatid)
+		}
+	})
+	t.Run("Test getSeatIDr", func(t *testing.T) {
+		seatid := getSeatIDr("BBBBBBBRRR")
+		expectedSeatId := 1023
+		if seatid != expectedSeatId {
+			t.Errorf("expected '%d' but got '%d'", expectedSeatId, seatid)
+		}
+	})
+	t.Run("Test getSeatIDr", func(t *testing.T) {
+		seatid := getSeatIDr("FFFBBBFRLL")
+		expectedSeatId := 116
+		if seatid != expectedSeatId {
+			t.Errorf("expected '%d' but got '%d'", expectedSeatId, seatid)
+		}
+	})
+	t.Run("Test getSeatIDr with invalid seat", func(t *testing.T) {
+		seatid := getSeatIDr("BBBBBBBRRS")
+		expectedSeatId := 0
+		if seatid != expectedSeatId {
+			t.Errorf("expected '%d' but got '%d'", expectedSeatId, seatid)
+		}
+	})
+	t.Run("Test getSeatIDr with invalid seat length", func(t *testing.T) {
+		seatid := getSeatIDr("BBBBBBBRRSS")
+		expectedSeatId := 0
+		if seatid != expectedSeatId {
+			t.Errorf("expected '%d' but got '%d'", expectedSeatId, seatid)
+		}
+	})
+}
+
+func BenchmarkGetSeatID(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		_ = getSeatID("BBBBBBBRRR")
 		_ = getSeatID("FFFFFFFLLL")
 		_ = getSeatID("SBBBBBBRRR")
 		_ = getSeatID("BBBBBBBRRS")
+
+	}
+}
+func BenchmarkGetSeatIDr(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = getSeatIDr("BBBBBBBRRR")
+		_ = getSeatIDr("FFFFFFFLLL")
+		_ = getSeatIDr("SBBBBBBRRR")
+		_ = getSeatIDr("BBBBBBBRRS")
 
 	}
 }

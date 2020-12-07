@@ -108,6 +108,22 @@ func getSeatID(s string) (seatId int) {
 	return
 }
 
+// getSeatIDr returns seatId of a given seat, refactored
+func getSeatIDr(s string) (seatId int) {
+	if len(s) != 10 {
+		return 0
+	}
+	for _, c := range s {
+		seatId <<= 1
+		if c == 82 || c == 66 {
+			seatId +=1
+		} else if c != 70 && c != 76 {
+			return 0
+		}
+	}
+	return
+}
+
 func main() {
 	i, err := ioutil.ReadFile("input.txt")
 	if err != nil {
