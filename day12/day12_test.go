@@ -138,7 +138,7 @@ func TestIntListToSlice(t *testing.T) {
 000
 00123`
 		got := intListToSlice(s)
-		expected := []int{123,1234,0,123}
+		expected := []int{123, 1234, 0, 123}
 		if !equalInt(got, expected) {
 			t.Errorf("expected '%v' but got '%v'", expected, got)
 		}

@@ -50,7 +50,7 @@ func SolveDay12Part1(i []string) (s int) {
 				currentDirection -= 360
 			}
 		case "F":
-			if currentDirection % 90 == 0{
+			if currentDirection%90 == 0 {
 				switch currentDirection {
 				case 0:
 					north += step.number
@@ -65,18 +65,18 @@ func SolveDay12Part1(i []string) (s int) {
 		}
 	}
 	if east < 0 {
-		east = east*(-1)
+		east = east * (-1)
 	}
 	if north < 0 {
-		north = north*(-1)
+		north = north * (-1)
 	}
-	return east+north
+	return east + north
 }
 
 //SolveDay12Part2 move the ship in the to the given instructions with waypoints
 func SolveDay12Part2(i []string) (s int) {
 	steps := sliceToStepSlice(i)
-	var east, north  int
+	var east, north int
 	wayEast, wayNorth := 10, 1
 	for _, step := range steps {
 		switch step.action {
@@ -89,17 +89,17 @@ func SolveDay12Part2(i []string) (s int) {
 		case "W":
 			wayEast -= step.number
 		case "L":
-			count := step.number/90
-			for i :=0; i <count; i++{
-				wayEastCur := wayNorth*(-1)
+			count := step.number / 90
+			for i := 0; i < count; i++ {
+				wayEastCur := wayNorth * (-1)
 				wayNorthCur := wayEast
 				wayNorth, wayEast = wayNorthCur, wayEastCur
 			}
 		case "R":
-			count := step.number/90
-			for i :=0; i <count; i++{
+			count := step.number / 90
+			for i := 0; i < count; i++ {
 				wayEastCur := wayNorth
-				wayNorthCur := wayEast*(-1)
+				wayNorthCur := wayEast * (-1)
 				wayNorth, wayEast = wayNorthCur, wayEastCur
 			}
 		case "F":
@@ -108,12 +108,12 @@ func SolveDay12Part2(i []string) (s int) {
 		}
 	}
 	if east < 0 {
-		east = east*(-1)
+		east = east * (-1)
 	}
 	if north < 0 {
-		north = north*(-1)
+		north = north * (-1)
 	}
-	return east+north
+	return east + north
 }
 
 //sliceToStepSlice convert a string slice to a step slice
@@ -129,7 +129,7 @@ func sliceToStepSlice(i []string) (steps []step) {
 		}
 		steps = append(steps, curStep)
 	}
-    return
+	return
 }
 
 //Helper functions
