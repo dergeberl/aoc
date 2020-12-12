@@ -60,18 +60,15 @@ func SolveDay10Part2Recursive(input []int) int64 {
 	wayCache = make(map[int]int64)
 	return countWays(input)
 }
+
 //countWays counts the way of distinct ways recursive
 func countWays(input []int) (sum int64) {
 	if wayCache[input[0]] != 0 {
 		return wayCache[input[0]]
 	}
-	nextCount := 4
-	if len(input) < 4 {
-		nextCount =len(input)
-	}
-	for i, next := range input[1:nextCount] {
-		if next-3 <= input[0]{
-			sum += countWays(input[i+1:])
+	for i := 1; i <= 3 && i < len(input); i++ {
+		if input[i]-3 <= input[0] {
+			sum += countWays(input[i:])
 		}
 	}
 	if sum == 0 {
