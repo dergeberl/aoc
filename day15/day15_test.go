@@ -144,6 +144,51 @@ func BenchmarkPlayElvesGame(b *testing.B) {
 	}
 }
 
+func TestSolvePlayElvesGameR(t *testing.T) {
+	t.Run("Test playElvesGameR", func(t *testing.T) {
+		i := `0,3,6`
+		got := playElvesGameR(i, 2020)
+		expected := 436
+
+		if got != expected {
+			t.Errorf("expected '%d' but got '%d'", expected, got)
+		}
+	})
+	t.Run("Test playElvesGameR", func(t *testing.T) {
+		i := `0,3,6`
+		got := playElvesGameR(i, 2020)
+		expected := 436
+
+		if got != expected {
+			t.Errorf("expected '%d' but got '%d'", expected, got)
+		}
+	})
+	t.Run("Test playElvesGameR", func(t *testing.T) {
+		i := `0,3,6`
+		got := playElvesGameR(i, 0)
+		expected := 0
+
+		if got != expected {
+			t.Errorf("expected '%d' but got '%d'", expected, got)
+		}
+	})
+	t.Run("Test playElvesGameR", func(t *testing.T) {
+		i := `0,a,6`
+		got := playElvesGameR(i, 0)
+		expected := 0
+
+		if got != expected {
+			t.Errorf("expected '%d' but got '%d'", expected, got)
+		}
+	})
+}
+
+func BenchmarkPlayElvesGameR(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = playElvesGameR("0,3,6", 10000)
+	}
+}
+
 func TestStringListToSlice(t *testing.T) {
 	t.Run("Test stringListToSlice with valid list", func(t *testing.T) {
 		s := `string

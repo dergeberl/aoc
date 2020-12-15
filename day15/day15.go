@@ -25,7 +25,7 @@ func SolveDay15Part1(i string) (s int) {
 
 //SolveDay15Part2 plays the Elves memory game and returns the 30000000th spoken number
 func SolveDay15Part2(i string) (s int) {
-	return playElvesGame(i, 30000000)
+	return playElvesGameR(i, 30000000)
 }
 
 //playElvesGame plays the Elves game until the given iteration
@@ -53,6 +53,37 @@ func playElvesGame(input string, iteration int) int {
 		lastTime[say] = i
 	}
 	return said[iteration]
+}
+
+//playElvesGameR plays the Elves game until the given iteration - refactor
+func playElvesGameR(input string, iteration int) int {
+	splitNumbers := strings.Split(input, ",")
+	if len(splitNumbers) > iteration {
+		return 0
+	}
+
+	var lastSaid int
+	lastTime, beforeLastTime := make(map[int]int), make(map[int]int)
+
+	for i, numbers := range splitNumbers {
+		lastSaid, err := strconv.Atoi(numbers)
+		if err != nil {
+			return 0
+		}
+		beforeLastTime[lastSaid] = lastTime[lastSaid]
+		lastTime[lastSaid] = i + 1
+	}
+
+	for i := len(splitNumbers) + 1; i <= iteration; i++ {
+		if beforeLastTime[lastSaid] != 0 {
+			lastSaid = lastTime[lastSaid] - beforeLastTime[lastSaid]
+		} else {
+			lastSaid = 0
+		}
+		beforeLastTime[lastSaid] = lastTime[lastSaid]
+		lastTime[lastSaid] = i
+	}
+	return lastSaid
 }
 
 //Helper functions
