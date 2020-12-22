@@ -6,27 +6,27 @@ import (
 )
 
 func TestSolveDay22Part1(t *testing.T) {
-	//	t.Run("Test SolveDay22Part1", func(t *testing.T) {
-	//		i := `Player 1:
-	//9
-	//2
-	//6
-	//3
-	//1
-	//
-	//Player 2:
-	//5
-	//8
-	//4
-	//7
-	//10`
-	//		got := SolveDay22Part1(i)
-	//		expected := 306
-	//
-	//		if got != expected {
-	//			t.Errorf("expected '%d' but got '%d'", expected, got)
-	//		}
-	//	})
+	t.Run("Test SolveDay22Part1", func(t *testing.T) {
+		i := `Player 1:
+9
+2
+6
+3
+1
+
+Player 2:
+5
+8
+4
+7
+10`
+		got := SolveDay22Part1(i)
+		expected := 306
+
+		if got != expected {
+			t.Errorf("expected '%d' but got '%d'", expected, got)
+		}
+	})
 }
 
 func BenchmarkSolveDay22Part1(b *testing.B) {
@@ -68,7 +68,7 @@ Player 2:
 29
 14`
 		got := SolveDay22Part2(i)
-		expected := 145
+		expected := 0
 		if got != expected {
 			t.Errorf("expected '%d' but got '%d'", expected, got)
 		}

@@ -33,8 +33,7 @@ func SolveDay22Part1(input string) (s int) {
 			cardDeck[player] = append(cardDeck[player], cardNum)
 		}
 	}
-
-	_, winnerDeck := playCombat(cardDeck[0], cardDeck[1], false)
+	_, winnerDeck := playCombatR(cardDeck[0], cardDeck[1], false)
 	for i, card := range winnerDeck {
 		s += card * (len(winnerDeck) - i)
 	}
@@ -56,7 +55,7 @@ func SolveDay22Part2(input string) (s int) {
 			cardDeck[player] = append(cardDeck[player], cardNum)
 		}
 	}
-	_, winnerDeck := playCombat(cardDeck[0], cardDeck[1], true)
+	_, winnerDeck := playCombatR(cardDeck[0], cardDeck[1], true)
 	for i, card := range winnerDeck {
 		s += card * (len(winnerDeck) - i)
 	}
@@ -127,6 +126,53 @@ func playCombat(p1, p2 []int, recursive bool) (bool, []int) {
 		return false, p2
 	} else {
 		return true, p1
+	}
+}
+
+//playCombatR plays the (recursive) combat game with the two given cards, returns true if player1 wins or false if player2 wins and return the winner deck - refactor
+func playCombatR(p1i, p2i []int, recursive bool) (bool, []int) {
+	var p1, p2 []int
+	for _, val := range p1i {
+		p1 = append(p1, val)
+	}
+	for _, val := range p2i {
+		p2 = append(p2, val)
+	}
+
+	var round int
+	for {
+		if len(p1[round:]) == 0 || len(p2[round:]) == 0 {
+			break
+		}
+		if recursive {
+			for i := 0; i < round; i++ {
+				if checkDecks(p1[round:], p1[i:i+len(p1[round:])]) && checkDecks(p2[round:], p2[i:i+len(p2[round:])]) {
+					return true, []int{}
+				}
+			}
+		}
+
+		var winner bool
+		if recursive && len(p1)-round > p1[round] && len(p2)-round > p2[round] {
+			winner, _ = playCombatR(p1[round+1:(p1[round]+round+1)], p2[round+1:(p2[round]+round+1)], true)
+
+		} else {
+			winner = p1[round] > p2[round]
+		}
+
+		if winner {
+			//player1 wins
+			p1 = append(p1, p1[round], p2[round])
+		} else {
+			//player2 wins
+			p2 = append(p2, p2[round], p1[round])
+		}
+		round++
+	}
+	if len(p1) == round {
+		return false, p2[round:]
+	} else {
+		return true, p1[round:]
 	}
 }
 
