@@ -43,3 +43,42 @@ func BenchmarkSolveDay23Part2(b *testing.B) {
 		_ = SolveDay23Part2(input)
 	}
 }
+
+func TestSolveDay23Part1R(t *testing.T) {
+	t.Run("Test SolveDay23Part1R", func(t *testing.T) {
+		i := "389125467"
+		got := SolveDay23Part1R(i)
+		expected := 67384529
+
+		if got != expected {
+			t.Errorf("expected '%v' but got '%v'", expected, got)
+		}
+	})
+}
+
+func BenchmarkSolveDay23Part1R(b *testing.B) {
+	i, _ := ioutil.ReadFile("input.txt")
+	input := string(i)
+	for n := 0; n < b.N; n++ {
+		_ = SolveDay23Part1R(input)
+	}
+}
+
+func TestSolveDay23Part2R(t *testing.T) {
+	t.Run("Test SolveDay23Part2R", func(t *testing.T) {
+		i := "389125467"
+		got := SolveDay23Part2R(i)
+		expected := 149245887792
+		if got != expected {
+			t.Errorf("expected '%v' but got '%v'", expected, got)
+		}
+	})
+}
+
+func BenchmarkSolveDay23Part2R(b *testing.B) {
+	i, _ := ioutil.ReadFile("input.txt")
+	input := string(i)
+	for n := 0; n < b.N; n++ {
+		_ = SolveDay23Part2R(input)
+	}
+}
