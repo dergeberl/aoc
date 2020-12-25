@@ -6,6 +6,14 @@ import (
 	"strings"
 )
 
+func main() {
+	i, _ := ioutil.ReadFile("input.txt")
+	input := string(i)
+	fmt.Printf("Part 1: %v\n", SolveDay3Part1(listToSlice(input), 3, 1))
+	fmt.Printf("Part 2: %v\n", SolveDay3Part2(listToSlice(input)))
+
+}
+
 //SolveDay3Part1 count the trees that hit by a path
 func SolveDay3Part1(trees []string, right int, down int) (sum int) {
 	i := 0
@@ -34,12 +42,4 @@ func listToSlice(list string) (s []string) {
 		s = append(s, line)
 	}
 	return
-}
-
-func main() {
-	i, _ := ioutil.ReadFile("input.txt")
-	input := string(i)
-	fmt.Printf("Part 1: %v\n", SolveDay3Part1(listToSlice(input), 3, 1))
-	fmt.Printf("Part 2: %v\n", SolveDay3Part2(listToSlice(input)))
-
 }

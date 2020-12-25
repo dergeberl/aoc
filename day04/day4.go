@@ -9,6 +9,31 @@ import (
 	"strings"
 )
 
+//Refactor with struct
+//password is a struct for the fields of the passwords
+type password struct {
+	byr int
+	iyr int
+	eyr int
+	hgt string
+	hcl string
+	ecl string
+	pid string
+	cid string
+}
+
+func main() {
+	i, err := ioutil.ReadFile("input.txt")
+	if err != nil {
+		os.Exit(1)
+	}
+	input := string(i)
+	fmt.Printf("Part 1: %v\n", SolveDay4Part1(input))
+	fmt.Printf("Part 2: %v\n", SolveDay4Part2(input))
+	fmt.Printf("Part 1 refactor: %v\n", SolveDay4Part1r(input))
+	fmt.Printf("Part 2 refactor: %v\n", SolveDay4Part2r(input))
+}
+
 // checkRequired check if all required fields of a password are set
 func checkRequired(m map[string]string) bool {
 	return m["byr"] != "" && m["iyr"] != "" && m["eyr"] != "" && m["hgt"] != "" && m["hcl"] != "" && m["ecl"] != "" && m["pid"] != ""
@@ -43,7 +68,7 @@ func SolveDay4Part1(i string) (sum int) {
 				cur[value[0]] = value[1]
 			}
 		}
-		if checkRequired(cur){
+		if checkRequired(cur) {
 			sum++
 		}
 	}
@@ -61,7 +86,7 @@ func SolveDay4Part2(i string) (sum int) {
 			}
 			for _, passwordKeyValue := range strings.Split(passwordLine, " ") {
 				value := strings.Split(passwordKeyValue, ":")
-				if !checkValue(value[1], value[0]){
+				if !checkValue(value[1], value[0]) {
 					invalid = true
 					break
 				}
@@ -75,20 +100,6 @@ func SolveDay4Part2(i string) (sum int) {
 	return
 }
 
-//Refactor with struct
-//password is a struct for the fields of the passwords
-type password struct {
-	byr int
-	iyr int
-	eyr int
-	hgt string
-	hcl string
-	ecl string
-	pid string
-	cid string
-
-}
-
 //SolveDay4Part1r returns number of passwords that have all required fields
 func SolveDay4Part1r(i string) (sum int) {
 	return len(extractPassword(i))
@@ -100,7 +111,7 @@ func SolveDay4Part2r(i string) (sum int) {
 }
 
 //extractPassword returns a password slice from a given list
-func extractPassword(list string) (passwords []password){
+func extractPassword(list string) (passwords []password) {
 	for _, pw := range strings.Split(list, "\n\n") {
 		currentPassword := password{}
 		for _, passwordLine := range strings.Split(pw, "\n") {
@@ -126,7 +137,7 @@ func extractPassword(list string) (passwords []password){
 					}
 					currentPassword.eyr = eyr
 				case "hgt":
-				    currentPassword.hgt = value[1]
+					currentPassword.hgt = value[1]
 				case "hcl":
 					currentPassword.hcl = value[1]
 				case "ecl":
@@ -138,7 +149,7 @@ func extractPassword(list string) (passwords []password){
 				}
 			}
 		}
-		if checkPasswordRequiredFields(currentPassword){
+		if checkPasswordRequiredFields(currentPassword) {
 			passwords = append(passwords, currentPassword)
 		}
 	}
@@ -146,33 +157,33 @@ func extractPassword(list string) (passwords []password){
 }
 
 //checkPasswordRequiredFields check a password if all required fields are given
-func checkPasswordRequiredFields(pw password) bool{
+func checkPasswordRequiredFields(pw password) bool {
 	return pw.byr != 0 && pw.iyr != 0 && pw.eyr != 0 && pw.hgt != "" && pw.hcl != "" && pw.ecl != "" && pw.pid != ""
 }
 
 //deleteInvalidPasswords remove all invalid passwords from the slice
-func deleteInvalidPasswords(passwords []password) (validPasswords []password){
+func deleteInvalidPasswords(passwords []password) (validPasswords []password) {
 	for _, pw := range passwords {
 		if pw.byr < 1920 || pw.byr > 2002 ||
 			pw.iyr < 2010 || pw.iyr > 2020 ||
 			pw.eyr < 2020 || pw.eyr > 2030 {
 			continue
 		}
-		if strings.HasSuffix(pw.hgt, "in"){
+		if strings.HasSuffix(pw.hgt, "in") {
 			hgt, err := strconv.Atoi(strings.TrimSuffix(pw.hgt, "in"))
-			if hgt < 59 || hgt > 76 || err != nil{
+			if hgt < 59 || hgt > 76 || err != nil {
 				continue
 			}
-		}else if strings.HasSuffix(pw.hgt, "cm"){
+		} else if strings.HasSuffix(pw.hgt, "cm") {
 			hgt, err := strconv.Atoi(strings.TrimSuffix(pw.hgt, "cm"))
-			if hgt < 150 || hgt > 193 || err != nil{
+			if hgt < 150 || hgt > 193 || err != nil {
 				continue
 			}
-		}else{
+		} else {
 			continue
 		}
 
-		if len(pw.hcl) != 7 || !strings.HasPrefix(pw.hcl, "#"){
+		if len(pw.hcl) != 7 || !strings.HasPrefix(pw.hcl, "#") {
 			continue
 		}
 		hcl := strings.TrimPrefix(pw.hcl, "#")
@@ -186,26 +197,14 @@ func deleteInvalidPasswords(passwords []password) (validPasswords []password){
 			pw.ecl == "gry" ||
 			pw.ecl == "grn" ||
 			pw.ecl == "hzl" ||
-			pw.ecl == "oth"){
+			pw.ecl == "oth") {
 			continue
 		}
 		_, err := strconv.Atoi(pw.pid)
-		if !(len(pw.pid) == 9 && err == nil){
+		if !(len(pw.pid) == 9 && err == nil) {
 			continue
 		}
 		validPasswords = append(validPasswords, pw)
 	}
 	return
-}
-
-func main() {
-	i, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		os.Exit(1)
-	}
-	input := string(i)
-	fmt.Printf("Part 1: %v\n", SolveDay4Part1(input))
-	fmt.Printf("Part 2: %v\n", SolveDay4Part2(input))
-	fmt.Printf("Part 1 refactor: %v\n", SolveDay4Part1r(input))
-	fmt.Printf("Part 2 refactor: %v\n", SolveDay4Part2r(input))
 }

@@ -79,14 +79,6 @@ func countWays(input []int) (sum int64) {
 }
 
 //Helper functions
-//stringListToSlice converts the list of strings (each string one row) to a slice
-func stringListToSlice(list string) (s []string) {
-	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
-		s = append(s, line)
-	}
-	return
-}
-
 //intListToSlice converts the list of numbers (each number one row) to a slice
 func intListToSlice(list string) (i []int) {
 	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {

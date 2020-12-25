@@ -83,8 +83,6 @@ func BenchmarkSolveDay4Part2(b *testing.B) {
 	}
 }
 
-
-
 func TestCheckRequired(t *testing.T) {
 	t.Run("Test checkRequired with valid fields", func(t *testing.T) {
 		i := map[string]string{
@@ -342,7 +340,6 @@ func TestCheckPasswordRequiredFields(t *testing.T) {
 		}
 	})
 }
-
 
 func TestDeleteInvalidPasswords(t *testing.T) {
 	t.Run("Test deleteInvalidPasswords", func(t *testing.T) {

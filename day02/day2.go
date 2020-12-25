@@ -10,6 +10,14 @@ import (
 
 var invalidMinMaxError = errors.New("invalid min max values")
 
+func main() {
+	i, _ := ioutil.ReadFile("input.txt")
+	input := string(i)
+	fmt.Printf("Part 1: %v\n", SolveDay2Part1(listToSlice(input)))
+	fmt.Printf("Part 2: %v\n", SolveDay2Part2(listToSlice(input)))
+
+}
+
 //SolveDay1Part1 count valid password that contains the right number of chars
 func SolveDay2Part1(passwordlist []string) (sum int) {
 	for _, p := range passwordlist {
@@ -65,12 +73,4 @@ func listToSlice(list string) (s []string) {
 		s = append(s, line)
 	}
 	return
-}
-
-func main() {
-	i, _ := ioutil.ReadFile("input.txt")
-	input := string(i)
-	fmt.Printf("Part 1: %v\n", SolveDay2Part1(listToSlice(input)))
-	fmt.Printf("Part 2: %v\n", SolveDay2Part2(listToSlice(input)))
-
 }

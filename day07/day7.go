@@ -8,6 +8,15 @@ import (
 	"strings"
 )
 
+func main() {
+	i, err := ioutil.ReadFile("input.txt")
+	if err != nil {
+		os.Exit(1)
+	}
+	fmt.Printf("Part 1: %v\n", SolveDay7Part1(stringListToSlice(string(i))))
+	fmt.Printf("Part 2: %v\n", SolveDay7Part2(stringListToSlice(string(i))))
+}
+
 //SolveDay7Part1 counts the colors that can contain a shiny gold bag
 func SolveDay7Part1(i []string) (c int) {
 	bags := exportBags(i)
@@ -67,32 +76,11 @@ func exportBags(i []string) (bags map[string]map[string]int) {
 	return
 }
 
-func main() {
-	i, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		os.Exit(1)
-	}
-	fmt.Printf("Part 1: %v\n", SolveDay7Part1(stringListToSlice(string(i))))
-	fmt.Printf("Part 2: %v\n", SolveDay7Part2(stringListToSlice(string(i))))
-}
-
 //Helper functions
 //stringListToSlice converts the list of strings (each string one row) to a slice
 func stringListToSlice(list string) (s []string) {
 	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
 		s = append(s, line)
-	}
-	return
-}
-
-//intListToSlice converts the list of numbers (each number one row) to a slice
-func intListToSlice(list string) (i []int) {
-	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
-		lineInt, err := strconv.Atoi(line)
-		if err != nil {
-			return nil
-		}
-		i = append(i, lineInt)
 	}
 	return
 }

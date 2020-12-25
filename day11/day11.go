@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -45,11 +44,11 @@ func SolveDay11Part2(i []string) (s int) {
 //printMap prints the map to show the current state for debugging
 func printMap(input map[int]map[int]string) (o string) {
 	for rowI := 0; rowI < len(input); rowI++ {
-		if rowI != 0{
-			o = o+fmt.Sprintf("\n")
+		if rowI != 0 {
+			o = o + fmt.Sprintf("\n")
 		}
 		for i := 0; i < len(input[rowI]); i++ {
-			o = o+fmt.Sprintf("%v", input[rowI][i])
+			o = o + fmt.Sprintf("%v", input[rowI][i])
 		}
 	}
 	return o
@@ -420,18 +419,6 @@ func applySeatRulesPart2(input map[int]map[int]string) (newSeats map[int]map[int
 func stringListToSlice(list string) (s []string) {
 	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
 		s = append(s, line)
-	}
-	return
-}
-
-//intListToSlice converts the list of numbers (each number one row) to a slice
-func intListToSlice(list string) (i []int) {
-	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
-		lineInt, err := strconv.Atoi(line)
-		if err != nil {
-			return nil
-		}
-		i = append(i, lineInt)
 	}
 	return
 }

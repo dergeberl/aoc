@@ -250,19 +250,6 @@ func TestCountWays(t *testing.T) {
 
 }
 
-func TestStringListToSlice(t *testing.T) {
-	t.Run("Test stringListToSlice with valid list", func(t *testing.T) {
-		s := `string
-string 2
-string:3`
-		got := stringListToSlice(s)
-		expected := []string{"string", "string 2", "string:3"}
-		if !equalString(got, expected) {
-			t.Errorf("expected '%v' but got '%v'", expected, got)
-		}
-	})
-}
-
 func TestIntListToSlice(t *testing.T) {
 	t.Run("Test intListToSlice with valid list", func(t *testing.T) {
 		s := `123
@@ -286,18 +273,6 @@ func TestIntListToSlice(t *testing.T) {
 			t.Errorf("expected '%v' but got '%v'", expected, got)
 		}
 	})
-}
-
-func equalString(a, b []string) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-	return true
 }
 
 func equalInt(a, b []int) bool {

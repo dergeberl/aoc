@@ -4,49 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strconv"
 	"strings"
 )
-
-//SolveDay6Part1 returns the sum of yes answers of groups
-func SolveDay6Part1(i string) (s int) {
-	for _, answerGroup := range strings.Split(i, "\n\n") {
-		s += len(deleteDuplicates(strings.Replace(answerGroup, "\n","",-1)))
-	}
-	return
-}
-
-//SolveDay6Part2 returns the sum of answers that in one croup all answered with yes
-func SolveDay6Part2(i string) (s int) {
-	for _, answerGroup := range strings.Split(i, "\n\n") {
-		cur := make(map[int32]int)
-		answerGroupAnswers := stringListToSlice(answerGroup)
-		for _, answers := range answerGroupAnswers{
-			answers = deleteDuplicates(answers)
-			for _, char := range answers {
-				cur[char]++
-			}
-		}
-		for _, answerCount := range cur{
-			if answerCount == len(answerGroupAnswers){
-				s++
-			}
-		}
-	}
-	return
-}
-
-func deleteDuplicates(i string) (output string) {
-	cur := make(map[int32]bool)
-    for _, chars := range i {
-    	if cur[chars]{
-    		continue
-		}
-		cur[chars] = true
-		output = output+string(chars)
-	}
-	return
-}
 
 func main() {
 	i, err := ioutil.ReadFile("input.txt")
@@ -58,23 +17,51 @@ func main() {
 	fmt.Printf("Part 2: %v\n", SolveDay6Part2(input))
 }
 
+//SolveDay6Part1 returns the sum of yes answers of groups
+func SolveDay6Part1(i string) (s int) {
+	for _, answerGroup := range strings.Split(i, "\n\n") {
+		s += len(deleteDuplicates(strings.Replace(answerGroup, "\n", "", -1)))
+	}
+	return
+}
+
+//SolveDay6Part2 returns the sum of answers that in one croup all answered with yes
+func SolveDay6Part2(i string) (s int) {
+	for _, answerGroup := range strings.Split(i, "\n\n") {
+		cur := make(map[int32]int)
+		answerGroupAnswers := stringListToSlice(answerGroup)
+		for _, answers := range answerGroupAnswers {
+			answers = deleteDuplicates(answers)
+			for _, char := range answers {
+				cur[char]++
+			}
+		}
+		for _, answerCount := range cur {
+			if answerCount == len(answerGroupAnswers) {
+				s++
+			}
+		}
+	}
+	return
+}
+
+func deleteDuplicates(i string) (output string) {
+	cur := make(map[int32]bool)
+	for _, chars := range i {
+		if cur[chars] {
+			continue
+		}
+		cur[chars] = true
+		output = output + string(chars)
+	}
+	return
+}
+
 //Helper functions
 //stringListToSlice converts the list of strings (each string one row) to a slice
 func stringListToSlice(list string) (s []string) {
 	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
 		s = append(s, line)
-	}
-	return
-}
-
-//intListToSlice converts the list of numbers (each number one row) to a slice
-func intListToSlice(list string) (i []int) {
-	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
-		lineInt, err := strconv.Atoi(line)
-		if err != nil {
-			return nil
-		}
-		i = append(i, lineInt)
 	}
 	return
 }

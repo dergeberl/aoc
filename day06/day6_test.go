@@ -77,7 +77,7 @@ func TestDeleteDuplicates(t *testing.T) {
 		s := `abcdef`
 		got := deleteDuplicates(s)
 		expected := "abcdef"
-		if got != expected{
+		if got != expected {
 			t.Errorf("expected '%v' but got '%v'", expected, got)
 		}
 	})
@@ -85,7 +85,7 @@ func TestDeleteDuplicates(t *testing.T) {
 		s := `aaaaaaaabcdef`
 		got := deleteDuplicates(s)
 		expected := "abcdef"
-		if got != expected{
+		if got != expected {
 			t.Errorf("expected '%v' but got '%v'", expected, got)
 		}
 	})
@@ -93,12 +93,11 @@ func TestDeleteDuplicates(t *testing.T) {
 		s := `aaaaaaaabcdaaaaaaefaabbbbfffbbbaa`
 		got := deleteDuplicates(s)
 		expected := "abcdef"
-		if got != expected{
+		if got != expected {
 			t.Errorf("expected '%v' but got '%v'", expected, got)
 		}
 	})
 }
-
 
 func TestStringListToSlice(t *testing.T) {
 	t.Run("Test stringListToSlice with valid list", func(t *testing.T) {
@@ -113,44 +112,7 @@ string:3`
 	})
 }
 
-func TestIntListToSlice(t *testing.T) {
-	t.Run("Test intListToSlice with valid list", func(t *testing.T) {
-		s := `123
-1234
-000
-00123`
-		got := intListToSlice(s)
-		expected := []int{123,1234,0,123}
-		if !equalInt(got, expected) {
-			t.Errorf("expected '%v' but got '%v'", expected, got)
-		}
-	})
-	t.Run("Test intListToSlice with invalid list", func(t *testing.T) {
-		s := `123
-1234a
-000
-00123`
-		got := intListToSlice(s)
-		expected := []int{}
-		if !equalInt(got, expected) {
-			t.Errorf("expected '%v' but got '%v'", expected, got)
-		}
-	})
-}
-
 func equalString(a, b []string) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-	return true
-}
-
-func equalInt(a, b []int) bool {
 	if len(a) != len(b) {
 		return false
 	}

@@ -7,6 +7,16 @@ import (
 	"strings"
 )
 
+func main() {
+	i, err := ioutil.ReadFile("input.txt")
+	if err != nil {
+		os.Exit(1)
+	}
+	input := string(i)
+	fmt.Printf("Part 1: %v\n", SolveDay5Part1(listToSlice(input)))
+	fmt.Printf("Part 2: %v\n", SolveDay5Part2(listToSlice(input)))
+}
+
 //SolveDay5Part1 returns the number of the highest seatId
 func SolveDay5Part1(boardingPass []string) (highestNumber int) {
 	for _, p := range boardingPass {
@@ -116,20 +126,10 @@ func getSeatIDr(s string) (seatId int) {
 	for _, c := range s {
 		seatId <<= 1
 		if c == 82 || c == 66 {
-			seatId +=1
+			seatId += 1
 		} else if c != 70 && c != 76 {
 			return 0
 		}
 	}
 	return
-}
-
-func main() {
-	i, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		os.Exit(1)
-	}
-	input := string(i)
-	fmt.Printf("Part 1: %v\n", SolveDay5Part1(listToSlice(input)))
-	fmt.Printf("Part 2: %v\n", SolveDay5Part2(listToSlice(input)))
 }

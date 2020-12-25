@@ -8,6 +8,13 @@ import (
 	"strings"
 )
 
+func main() {
+	i, _ := ioutil.ReadFile("input.txt")
+	input := string(i)
+	fmt.Printf("Part 1: %v\n", SolveDay1Part1(listToSlice(input)))
+	fmt.Printf("Part 2: %v\n", SolveDay1Part2(listToSlice(input)))
+}
+
 //SolveDay1Part1 search for two numbers in a slice that sum is 2020 and multiply them
 func SolveDay1Part1(nums []int) int {
 	for _, num := range nums {
@@ -51,12 +58,4 @@ func listToSlice(list string) (i []int) {
 		i = append(i, lineint)
 	}
 	return
-}
-
-func main() {
-	i, _ := ioutil.ReadFile("input.txt")
-	input := string(i)
-	fmt.Printf("Part 1: %v\n", SolveDay1Part1(listToSlice(input)))
-	fmt.Printf("Part 2: %v\n", SolveDay1Part2(listToSlice(input)))
-
 }

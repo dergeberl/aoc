@@ -8,7 +8,6 @@ import (
 	"strings"
 )
 
-
 func main() {
 	i, err := ioutil.ReadFile("input.txt")
 	if err != nil {
@@ -29,18 +28,18 @@ func SolveDay8Part1(i []string) (s int) {
 	for {
 		if checked[cur] {
 
-					return
+			return
 
 		}
 		checked[cur] = true
-		if strings.HasPrefix(i[cur], "acc "){
+		if strings.HasPrefix(i[cur], "acc ") {
 			t := strings.TrimPrefix(i[cur], "acc ")
 			temp, err := strconv.Atoi(t)
 			if err != nil {
 				return 0
 			}
 			s = s + temp
-		} else if strings.HasPrefix(i[cur], "jmp "){
+		} else if strings.HasPrefix(i[cur], "jmp ") {
 			t := strings.TrimPrefix(i[cur], "jmp ")
 			temp, err := strconv.Atoi(t)
 			if err != nil {
@@ -49,7 +48,7 @@ func SolveDay8Part1(i []string) (s int) {
 			cur += temp
 			continue
 		}
-		cur ++
+		cur++
 	}
 }
 
@@ -65,17 +64,17 @@ func SolveDay8Part1r(i []string) (s int) {
 
 		}
 		checked[cur] = true
-		for task, int := range tasks[cur]{
-			if task == "acc"{
-				s +=int
-				cur ++
+		for task, int := range tasks[cur] {
+			if task == "acc" {
+				s += int
+				cur++
 				break
 			}
 			if task == "jmp" {
 				cur += int
-                break
+				break
 			}
-			cur ++
+			cur++
 		}
 	}
 }
@@ -85,7 +84,7 @@ func SolveDay8Part2(i []string) (s int) {
 	input := i
 	checked := make(map[int]bool)
 	cur := 0
-	changed:= 0
+	changed := 0
 	for {
 		if len(input) <= cur {
 			return s
@@ -101,8 +100,8 @@ func SolveDay8Part2(i []string) (s int) {
 				return 0
 			}
 			s += temp
-			cur ++
-		} else if strings.HasPrefix(input[cur], "jmp") && cur != changed || (strings.HasPrefix(input[cur], "nop") && cur == changed){
+			cur++
+		} else if strings.HasPrefix(input[cur], "jmp") && cur != changed || (strings.HasPrefix(input[cur], "nop") && cur == changed) {
 			jump, err := strconv.Atoi(strings.TrimPrefix(input[cur], "jmp "))
 			if err != nil {
 				jump, err = strconv.Atoi(strings.TrimPrefix(input[cur], "nop "))
@@ -111,10 +110,9 @@ func SolveDay8Part2(i []string) (s int) {
 				}
 			}
 			cur += jump
-		} else if strings.HasPrefix(input[cur], "nop") && cur != changed|| (strings.HasPrefix(input[cur], "jmp") && cur == changed){
+		} else if strings.HasPrefix(input[cur], "nop") && cur != changed || (strings.HasPrefix(input[cur], "jmp") && cur == changed) {
 			cur++
 		}
-
 
 	}
 }
@@ -124,7 +122,7 @@ func SolveDay8Part2r(i []string) (s int) {
 	input := i
 	checked := make(map[int]bool)
 	cur := 0
-	changed:= 0
+	changed := 0
 	tasks := getTasks(i)
 	for {
 		if len(input) <= cur {
@@ -135,29 +133,27 @@ func SolveDay8Part2r(i []string) (s int) {
 			changed++
 		}
 		checked[cur] = true
-		for task, int := range tasks[cur]{
-			if task == "acc"{
-				s +=int
-				cur ++
+		for task, int := range tasks[cur] {
+			if task == "acc" {
+				s += int
+				cur++
 				break
 			}
-			if task == "jmp"  && cur != changed || task == "nop" && cur == changed {
+			if task == "jmp" && cur != changed || task == "nop" && cur == changed {
 				cur += int
 				break
 			}
-			if task == "nop"  && cur != changed || task == "jmp" && cur == changed {
+			if task == "nop" && cur != changed || task == "jmp" && cur == changed {
 				cur++
 				break
 			}
 		}
 
-
-
 	}
 }
 
 //getTasks returns a map with the tasks
-func getTasks(input []string)  (tasks map[int]map[string]int) {
+func getTasks(input []string) (tasks map[int]map[string]int) {
 	tasks = make(map[int]map[string]int)
 	for i, task := range input {
 		splitTask := strings.Split(task, " ")
@@ -177,18 +173,6 @@ func getTasks(input []string)  (tasks map[int]map[string]int) {
 func stringListToSlice(list string) (s []string) {
 	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
 		s = append(s, line)
-	}
-	return
-}
-
-//intListToSlice converts the list of numbers (each number one row) to a slice
-func intListToSlice(list string) (i []int) {
-	for _, line := range strings.Split(strings.TrimSuffix(list, "\n"), "\n") {
-		lineInt, err := strconv.Atoi(line)
-		if err != nil {
-			return nil
-		}
-		i = append(i, lineInt)
 	}
 	return
 }
