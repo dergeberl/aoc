@@ -1,3 +1,3 @@
 module github.com/dergeberl/aoc
 
-go 1.15
+go 1.17
