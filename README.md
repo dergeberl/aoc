@@ -4,4 +4,5 @@ My solutions for Advent of Code (<https://adventofcode.com/>) solutions written 
 
 year | status
 --- | ---
+2019 | started 
 2020 | complete 
