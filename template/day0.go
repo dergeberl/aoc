@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/dergeberl/aoc/utils"
 )
 
 func main() {
-	input, err := ioutil.ReadFile("input.txt")
+	input, err := os.ReadFile("input.txt")
 	if err != nil {
 		os.Exit(1)
 	}

@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/dergeberl/aoc/utils"
 )
 
 func main() {
-	input, err := ioutil.ReadFile("input.txt")
+	input, err := os.ReadFile("input.txt")
 	if err != nil {
 		os.Exit(1)
 	}
@@ -17,13 +16,13 @@ func main() {
 	fmt.Printf("Part 2: %v\n", SolveDay01Part2(string(input)))
 }
 
-//SolveDay01Part1
+//SolveDay01Part1 returns the sum of numbers that are higher as the numbers before
 func SolveDay01Part1(input string) int {
 	inputInt, _ := utils.InputToIntSlice(input)
 	return calculateIncrements(inputInt)
 }
 
-//SolveDay01Part2
+//SolveDay01Part2 returns the sum if numbers that are higher as the numbers before after always sum 3 numbers together
 func SolveDay01Part2(input string) int {
 	inputInt, _ := utils.InputToIntSlice(input)
 	avg := make([]int, len(inputInt)-2)
