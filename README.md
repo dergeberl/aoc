@@ -1,6 +1,6 @@
 # Advent of Code
 
-My solutions for Advent of Code (<https://adventofcode.com/>) solutions written in go.  
+My Advent of Code (<https://adventofcode.com/>) solutions written in go.  
 
 year | status
 --- | ---
