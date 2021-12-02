@@ -65,17 +65,17 @@ func SolveDay02Part2(input string) int {
 
 func convertInputInCommands(input string) []command {
 	lines, _ := utils.InputToSlice(input)
-	var c []command
+	c := make([]command, len(lines))
 	for i := range lines {
 		line := strings.Split(lines[i], " ")
 		if len(line) != 2 {
 			panic("do not end here")
 		}
 		stepInt, _ := strconv.Atoi(line[1])
-		c = append(c, command{
+		c[i] = command{
 			direction: line[0],
 			step:      stepInt,
-		})
+		}
 	}
 	return c
 }
