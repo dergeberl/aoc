@@ -22,3 +22,13 @@ func InputToIntSlice(input string) ([]int, error) {
 func InputToSlice(input string) ([]string, error) {
 	return strings.Split(strings.TrimSuffix(input, "\n"), "\n"), nil
 }
+
+//RemoveFromIntSlice removes a given position from an int slice NOT ORDER SAVE
+func RemoveFromIntSlice(s []int, i int) []int {
+	l := len(s)
+	if l <= i {
+		return s
+	}
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
+}

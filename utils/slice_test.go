@@ -39,6 +39,24 @@ func TestInputToIntSlice(t *testing.T) {
 	})
 }
 
+func TestRemoveFromIntSlice(t *testing.T) {
+	t.Run("Test RemoveFromIntSlice with valid list", func(t *testing.T) {
+		s := []int{1, 2, 3}
+		got := RemoveFromIntSlice(s, 1)
+		expected := []int{1, 3}
+		if !equalInt(got, expected) {
+			t.Errorf("expected '%v' but got '%v'", expected, got)
+		}
+	})
+	t.Run("Test RemoveFromIntSlice with valid list", func(t *testing.T) {
+		s := []int{1, 2, 3}
+		got := RemoveFromIntSlice(s, 3)
+		expected := []int{1, 2, 3}
+		if !equalInt(got, expected) {
+			t.Errorf("expected '%v' but got '%v'", expected, got)
+		}
+	})
+}
 
 func equalString(a, b []string) bool {
 	if len(a) != len(b) {
