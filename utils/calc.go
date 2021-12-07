@@ -8,3 +8,11 @@ func SumSlice(slice []int) int {
 	}
 	return sum
 }
+
+//GetDiff returns the difference between a and b
+func GetDiff(a, b int) int {
+	if a > b {
+		return a - b
+	}
+	return b - a
+}
