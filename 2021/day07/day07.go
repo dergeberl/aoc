@@ -34,12 +34,12 @@ func SolveDay07Part2(input string) int {
 // getSumOfNeededFuel returns the sum of fuel for all submarines on the optimal position
 func (c crabs) getSumOfNeededFuel(crabVersion bool) int {
 	l, h := c.getRange()
-	fuel := len(c) * getFuelConsumptionCrab(l, h)
+	fuel := len(c) * utils.GetGaussscheSummenformel(utils.GetDiff(l, h))
 	for i := l; i <= h; i++ {
 		tmpFuel := 0
 		for cr := range c {
 			if crabVersion {
-				tmpFuel += getFuelConsumptionCrab(i, c[cr])
+				tmpFuel += utils.GetGaussscheSummenformel(utils.GetDiff(i, c[cr]))
 				continue
 			}
 			tmpFuel += utils.GetDiff(i, c[cr])
@@ -72,16 +72,6 @@ func (c crabs) getRange() (int, int) {
 	}
 
 	return low, height
-}
-
-// getFuelConsumptionCrab returns the fuel consumption as crab engineering
-func getFuelConsumptionCrab(a, b int) int {
-	d := utils.GetDiff(a, b)
-	var s int
-	for i := 1; i <= d; i++ {
-		s += i
-	}
-	return s
 }
 
 // getNumbersFromList returns the crab submarines

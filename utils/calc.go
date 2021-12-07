@@ -16,3 +16,8 @@ func GetDiff(a, b int) int {
 	}
 	return b - a
 }
+
+//GetGaussscheSummenformel returns sum with the Gaußsche Summenformel
+func GetGaussscheSummenformel(n int) int {
+	return (n * (n + 1)) / 2
+}
