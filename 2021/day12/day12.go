@@ -48,29 +48,27 @@ func parseInput(input string) connection {
 }
 
 // returns the number of paths for a given start cave
-func (c connection) findPath(start string, visitOneSmallCaveTwice bool, smallCaves []string) int {
-
-	if start == "end" {
+func (c connection) findPath(cave string, visitOneSmallCaveTwice bool, smallCaves []string) int {
+	if cave == "end" {
 		return 1
 	}
-	if start == "start" && len(smallCaves) != 0 {
+	if cave == "start" && len(smallCaves) != 0 {
 		return 0
 	}
-	if smallCaves == nil {
-		smallCaves = make([]string, 0)
-	}
-	if strings.ToLower(start) == start {
-		if !checkSmallCave(start, smallCaves, visitOneSmallCaveTwice) {
+
+	if strings.ToLower(cave) == cave {
+		if smallCaves == nil {
+			smallCaves = make([]string, 0)
+		}
+		if !checkSmallCave(cave, smallCaves, visitOneSmallCaveTwice) {
 			return 0
 		}
-		smallCaves = append(smallCaves, start)
+		smallCaves = append(smallCaves, cave)
 	}
 
 	var sum int
-	for _, p := range c[start] {
-		tmp := make([]string, len(smallCaves))
-		copy(tmp, smallCaves)
-		sum += c.findPath(p, visitOneSmallCaveTwice, tmp)
+	for _, p := range c[cave] {
+		sum += c.findPath(p, visitOneSmallCaveTwice, smallCaves)
 	}
 
 	return sum
