@@ -5,6 +5,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/dergeberl/aoc/utils"
 )
 
 type area struct {
@@ -24,16 +26,7 @@ func main() {
 //SolveDay17Part1 returns the highest reachable y value for a target area
 func SolveDay17Part1(input string) int {
 	a := parseInput(input)
-	var heightX int
-	for x := 0; x <= a.x2; x++ {
-		for y := 0; y <= (a.y1 * -1); y++ {
-			hit, hx := a.checkShot(x, y)
-			if hit && heightX < hx {
-				heightX = hx
-			}
-		}
-	}
-	return heightX
+	return utils.GetGaussscheSummenformel((a.y1 * -1) - 1)
 }
 
 //SolveDay17Part2  returns the number of possible shots for a target area
@@ -42,8 +35,7 @@ func SolveDay17Part2(input string) int {
 	var hits int
 	for x := 0; x <= a.x2; x++ {
 		for y := a.y1; y <= (a.y1 * -1); y++ {
-			hit, _ := a.checkShot(x, y)
-			if hit {
+			if a.checkShot(x, y) {
 				hits++
 			}
 		}
@@ -52,42 +44,30 @@ func SolveDay17Part2(input string) int {
 }
 
 //checkShot returns true shot is possible and returns the highest reached y
-func (a area) checkShot(x, y int) (bool, int) {
+func (a area) checkShot(x, y int) bool {
 	curX, curY := 0, 0
-	heightY := 0
 	for a.isReachableByPoint(curX, curY) {
 		curX += x
 		curY += y
-		if curY > heightY {
-			heightY = curY
-		}
 		if a.checkPoint(curX, curY) {
-			return true, heightY
+			return true
 		}
 		if x > 0 {
 			x--
 		}
 		y--
 	}
-	return false, 0
+	return false
 }
 
 //checkPoint returns true if point is in area
 func (a area) checkPoint(x, y int) bool {
-	if y >= a.y1 && y <= a.y2 &&
-		x >= a.x1 && x <= a.x2 {
-		return true
-	}
-	return false
+	return y >= a.y1 && y <= a.y2 && x >= a.x1 && x <= a.x2
 }
 
 //isReachableByPoint returns if the area is reachable by a point
 func (a area) isReachableByPoint(x, y int) bool {
-	if y < a.y1 ||
-		x > a.x2 {
-		return false
-	}
-	return true
+	return !(y < a.y1 || x > a.x2)
 }
 
 //parseInput returns the given target area
