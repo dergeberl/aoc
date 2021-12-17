@@ -10,7 +10,7 @@ func TestSolveDay01Part1(t *testing.T) {
 		got := SolveDay01Part1(`14
 1969
 100756`)
-		expected := 2+654+33583
+		expected := 2 + 654 + 33583
 
 		if got != expected {
 			t.Errorf("expected '%d' but got '%d'", expected, got)
