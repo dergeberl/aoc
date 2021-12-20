@@ -37,12 +37,13 @@ func SolveDay20Part1(input string) int {
 //SolveDay20Part2 returns the number of lit pixels after enhance 50 times
 func SolveDay20Part2(input string) int {
 	algorithm, img := parseInput(input)
-	img = img.increase(102)
 	for i := 0; i < 50; i++ {
+		if i%2 == 0 {
+			img = img.increase(4)
+		}
 		img = img.enhance(algorithm)
 		img = img.decrease(1)
 	}
-	img = img.decrease(2)
 	return img.countLit()
 }
 
@@ -84,24 +85,7 @@ func (i image) getPixel(p point) bool {
 
 //increase the image by x pixel on each site
 func (i image) increase(by int) image {
-	var maxX, maxY int
-	minX := math.MaxInt
-	minY := math.MaxInt
-
-	for p := range i {
-		if p.x > maxX {
-			maxX = p.x
-		}
-		if p.y > maxY {
-			maxY = p.y
-		}
-		if p.x < minX {
-			minX = p.x
-		}
-		if p.y < minY {
-			minY = p.y
-		}
-	}
+	minX, minY, maxX, maxY := i.getSize()
 	for y := minY - by; y <= maxY+by; y++ {
 		for x := minX - by; x <= maxX+by; x++ {
 			if i[point{x: x, y: y}] == nil {
@@ -115,6 +99,18 @@ func (i image) increase(by int) image {
 
 //decrease the image by x pixel on each site
 func (i image) decrease(by int) image {
+	minX, minY, maxX, maxY := i.getSize()
+	newImg := make(image)
+	for y := minY + by; y <= maxY-by; y++ {
+		for x := minX + by; x <= maxX-by; x++ {
+			newImg[point{x: x, y: y}] = i[point{x: x, y: y}]
+		}
+	}
+	return newImg
+}
+
+//getSize returns the size of the image (minX, minY, maxX, maxY)
+func (i image) getSize() (int, int, int, int) {
 	var maxX, maxY int
 	minX := math.MaxInt
 	minY := math.MaxInt
@@ -132,13 +128,7 @@ func (i image) decrease(by int) image {
 			minY = p.y
 		}
 	}
-	newImg := make(image)
-	for y := minY + by; y <= maxY-by; y++ {
-		for x := minX + by; x <= maxX-by; x++ {
-			newImg[point{x: x, y: y}] = i[point{x: x, y: y}]
-		}
-	}
-	return newImg
+	return minX, minY, maxX, maxY
 }
 
 //print the image for debugging
