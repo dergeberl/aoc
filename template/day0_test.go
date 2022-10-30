@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -17,7 +17,7 @@ func TestSolveDay0Part1(t *testing.T) {
 }
 
 func BenchmarkSolveDay0Part1(b *testing.B) {
-	i, _ := ioutil.ReadFile("input.txt")
+	i, _ := os.ReadFile("input.txt")
 	for n := 0; n < b.N; n++ {
 		_ = SolveDay0Part1(string(i))
 	}
@@ -34,7 +34,7 @@ func TestSolveDay0Part2(t *testing.T) {
 }
 
 func BenchmarkSolveDay0Part2(b *testing.B) {
-	i, _ := ioutil.ReadFile("input.txt")
+	i, _ := os.ReadFile("input.txt")
 	for n := 0; n < b.N; n++ {
 		_ = SolveDay0Part2(string(i))
 	}
