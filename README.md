@@ -8,7 +8,7 @@ My Advent of Code (<https://adventofcode.com/>) solutions written in go.
 | day 02 | [x](2019/day02/day02.go) | [x](2020/day02/day2.go)  | [x](2021/day02/day02.go) | [x](2022/day02/day02.go) |
 | day 03 |                          | [x](2020/day03/day3.go)  | [x](2021/day03/day03.go) | [x](2022/day03/day03.go) |
 | day 04 |                          | [x](2020/day04/day4.go)  | [x](2021/day04/day04.go) | [x](2022/day04/day04.go) |
-| day 05 |                          | [x](2020/day05/day5.go)  | [x](2021/day05/day05.go) |                          |
+| day 05 |                          | [x](2020/day05/day5.go)  | [x](2021/day05/day05.go) | [x](2022/day05/day05.go) |
 | day 06 |                          | [x](2020/day06/day6.go)  | [x](2021/day06/day06.go) |                          |
 | day 07 |                          | [x](2020/day07/day7.go)  | [x](2021/day07/day07.go) |                          |
 | day 08 |                          | [x](2020/day08/day8.go)  | [x](2021/day08/day08.go) |                          |
